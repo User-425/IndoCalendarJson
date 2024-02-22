@@ -1,0 +1,32 @@
+name: Fetch and save JSON
+
+on:
+  schedule:
+    - cron: '0 0 1 12 *'  # Run every hour
+
+jobs:
+  fetch-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Fetch JSON from API
+        run: |
+          mkdir -p data
+          for year in {1910..2100}; do
+            mkdir -p $year
+            curl -sS "https://kalenderindonesia.com/api/9010b0cbc2affdbf/kalender/masehi/$year" -o "data/$year.json"
+            for month in {0..11}; do
+              mkdir -p "$year/$month"
+              echo $(jq .data[$month] "data/$year.json") > "$year/$month/data.json"
+            done
+          done
+
+      - name: Commit JSON data
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git add .
+          git commit -m "Update JSON data [skip ci]"
+          git push
