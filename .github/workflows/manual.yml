@@ -19,11 +19,11 @@ jobs:
         run: |
           mkdir -p json
           for year in {1910..1920}; do
-            mkdir -p $year
+            mkdir -p "json/$year"
             curl -sS "https://kalenderindonesia.com/api/9010b0cbc2affdbf/kalender/masehi/$year" -o "json/$year/data.json"
             for month in {0..11}; do
               mkdir -p "json/$year/$month"
-              echo $(jq .data[$month] "json/$year/$year.json") > "json/$year/$month/data.json"
+              echo $(jq .data[$month] "json/$year/data.json") > "json/$year/$month/data.json"
             done
           done
 
@@ -35,5 +35,4 @@ jobs:
           git pull origin main
           git add .
           git commit -m "Update JSON data [skip ci]"
-          git pull origin main
           git push origin main
