@@ -1,8 +1,9 @@
 name: Fetch and save JSON
 
 on:
+  workflow_dispatch:
   schedule:
-    - cron: '0 0 1 12 *'  # Run every hour
+    - cron: '0 0 1 12 *'  # Run every 1 December
 
 jobs:
   fetch-json:
