@@ -32,6 +32,7 @@ jobs:
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
           git config --global credential.helper store
+          git pull origin main
           git add .
           git commit -m "Update JSON data [skip ci]"
-          git push https://github.com/${{ github.repository }}.git HEAD:main
+          git push origin main
