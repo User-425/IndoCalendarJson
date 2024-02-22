@@ -17,13 +17,13 @@ jobs:
 
       - name: Fetch JSON from API
         run: |
-          mkdir -p data
+          mkdir -p json
           for year in {1910..1920}; do
             mkdir -p $year
-            curl -sS "https://kalenderindonesia.com/api/9010b0cbc2affdbf/kalender/masehi/$year" -o "data/$year.json"
+            curl -sS "https://kalenderindonesia.com/api/9010b0cbc2affdbf/kalender/masehi/$year" -o "json/$year/data.json"
             for month in {0..11}; do
-              mkdir -p "$year/$month"
-              echo $(jq .data[$month] "data/$year.json") > "$year/$month/data.json"
+              mkdir -p "json/$year/$month"
+              echo $(jq .data[$month] "json/$year/$year.json") > "json/$year/$month/data.json"
             done
           done
 
