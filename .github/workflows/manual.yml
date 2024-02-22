@@ -18,7 +18,7 @@ jobs:
       - name: Fetch JSON from API
         run: |
           mkdir -p data
-          for year in {1910..2100}; do
+          for year in {1910..1920}; do
             mkdir -p $year
             curl -sS "https://kalenderindonesia.com/api/9010b0cbc2affdbf/kalender/masehi/$year" -o "data/$year.json"
             for month in {0..11}; do
@@ -35,4 +35,5 @@ jobs:
           git pull origin main
           git add .
           git commit -m "Update JSON data [skip ci]"
+          git pull origin main
           git push origin main
