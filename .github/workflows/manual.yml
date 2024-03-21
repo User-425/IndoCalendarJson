@@ -6,7 +6,7 @@ env:
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 1 12 *'  # Run every 1 December
+    - cron: '0 0 1 * *'  # Run every month
 
 jobs:
   fetch-json:
